@@ -1,0 +1,482 @@
+:root{
+    --font-family: 'Archivo', Arial, sans-serif;
+    --mono-font-family: 'Courier New';
+    --content: #000000;
+    --strong-accent: #0e519e;
+    --bold-accent: #2c8acc;
+    --medium-accent: #73b3e0;
+    --mild-accent: #b0d7e7;
+    --light-accent: #e7f3f8;
+    --background: #FFFFFF;
+
+    --invalid-soft: #f1d8d8;
+    --invalid-hard: #d34040;
+
+    --small-header: 1.75rem;
+    --first-heading: 1.25rem;
+}
+
+body{
+    padding: 0 2.5%;
+    margin: 0;
+    font-family: var(--font-family);
+    color: var(--content);
+    background-color: var(--background);
+}
+body.dark{
+    --content: #FFFFFF;
+    --strong-accent: #7ec9e7;
+    --bold-accent: #3899d1;
+    --medium-accent: #0f5983;
+    --mild-accent: #0b4b75;
+    --light-accent: #02192c;
+    --background: #000000;
+
+    --invalid-soft: #350202;
+    --invalid-hard: #c02d2d;
+}
+.noScroll{
+    height: 100vh;
+}
+
+.header{
+    margin: auto;
+    max-width: 1200px;
+    height: var(--small-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.header.big{
+    height: initial;
+    padding-top: 0.25em;
+    padding-bottom: 0.125em;
+}
+
+.headerTitle{
+    text-align: center;
+}
+.title_Web{
+    padding: 0 .5ch;
+    font-family: Consolas, Courier, monospace;
+    font-weight: bold;
+    background-color: var(--strong-accent);
+    color: var(--background);
+}
+.title_Specimen{
+    font-family: 'Sitka Text', 'Linux Libertine G','Liberation Serif', Times, serif;
+    font-weight: bold;
+    font-style: italic;
+    color: var(--strong-accent);
+}
+.bigTitle_Web{
+    font-family: 'Source Code Pro', Consolas, Courier, monospace;
+    padding: 0.25ch;
+    font-size: 4em;
+    line-height: 1.2em;
+    background-color: var(--strong-accent);
+    color: var(--background);
+}
+.bigTitle_Specimen{
+    font-family: 'Sitka Display', 'Linux Libertine G','Liberation Serif', Times, serif;
+    font-size: 1.75em;
+    font-weight: bold;
+    font-style: italic;
+    line-height: 0.5em;
+    background-color: var(--background);
+    color: var(--strong-accent);
+    padding: 0 3ch;
+}
+
+.themeSwitcher{
+    font-size: 1em;
+    width: 1.25em;
+    height: 1.2em;
+    padding-bottom: 0.05em;
+
+    border-radius: 1em;
+    background-color: var(--content);
+    color: var(--background);
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header > a{
+    text-decoration: none;
+}
+
+nav > a{
+    color: var(--bold-accent);
+    text-decoration: none;
+    
+    padding: 0.25ch 1ch;
+    
+    transition: all ease-out 200ms;
+}
+nav.home > a{
+    font-size: 1.25em;
+}
+
+nav > a:hover, nav > a:focus-visible{
+    letter-spacing: 0.25ch;
+    color:var(--strong-accent);
+    background-color: var(--mild-accent);
+    border-radius: 1ch;
+}
+
+.content{
+    margin: 0 auto 0 auto;
+    max-width: 900px;
+}
+
+.content > h1{
+    font-size: 0.82em;
+    font-weight: normal;
+    line-height: var(--first-heading);
+    
+    margin: 0;
+    text-align: center;
+    
+    color: var(--strong-accent);
+    border-bottom: solid var(--medium-accent) 1px;
+}
+
+.tagline {
+    margin-top: 1em;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.fontsGrid{
+    display: grid;
+    gap: 1ch;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.fontCell{
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    background-color: var(--light-accent);
+    padding: 1ch;
+    font-size: 0.75em;
+}
+
+.fontCellTitle
+{
+    display: flex;
+    flex-direction: column;
+    max-height: 1em;
+    margin-bottom: 0.25em;
+    margin: 0.125em 1ch;
+    justify-content: end;
+    
+    font-weight: bold;
+    font-size: 2em;
+    
+    border-bottom: solid var(--medium-accent) 1px;
+}
+
+
+.sidebar{
+    margin: 0 2ch 0 2ch;
+}
+
+
+.scroll{
+    max-height: calc(100vh - (var(--first-heading) + var(--small-header)));
+    white-space: 1;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.sidebarFontButton{
+    min-width: 10ch;
+    height: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    background-color: var(--light-accent);
+    padding: 0.125em 1ch;
+    margin: 0.25em;
+    border-radius: 0.5em;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+.sidebarFontButton:hover{
+    background-color: var(--mild-accent);
+}
+
+/*----SPECIMEN----*/
+
+#specimenTitle{
+    font-size: 3em;
+    width: 100%;
+}
+
+.specimenColumns{
+    display: inline-flex;
+}
+
+.specimenColumn{
+    max-width: 40%;
+    padding: 0 1ch;
+}
+
+.specimenColumn > p{
+    line-height: 1em;
+    margin: 0.5em 0;
+}
+
+.noSpacing{
+    line-height: 1.15em;
+    margin: 0;
+    padding: 0;
+}
+
+.bodySpecimenLayout{
+    position: relative;
+    display: grid;
+    grid-template-columns: 4fr 1fr 2fr;
+    gap: 1ch;
+    max-height: 20em;
+    overflow: hidden;
+}
+
+.noSpacing > p{
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}
+
+.fade{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 25%;
+    background: linear-gradient(transparent, var(--background));
+}
+
+#weightSpecimen{
+    font-size: 2em;
+}
+
+.specimenWeight100 { display: none; font-weight: 100;}
+.specimenWeight200 { display: none; font-weight: 200;}
+.specimenWeight300 { display: none; font-weight: 300;}
+.specimenWeight400 { display: none; font-weight: 400;}
+.specimenWeight500 { display: none; font-weight: 500;}
+.specimenWeight600 { display: none; font-weight: 600;}
+.specimenWeight700 { display: none; font-weight: 700;}
+.specimenWeight800 { display: none; font-weight: 800;}
+.specimenWeight900 { display: none; font-weight: 900;}
+
+.specimenStyleNormal    {display: none; font-style: normal;}
+.specimenStyleItalic    {display: none; font-style: italic;}
+.specimenStyleOblique   {display: none; font-style: oblique;}
+
+.specimenStretchUltraCondensed  {display: none; font-stretch: ultra-condensed;}
+.specimenStretchExtraCondensed  {display: none; font-stretch: extra-condensed;}
+.specimenStretchSemiCondensed   {display: none; font-stretch: semi-condensed;}
+.specimenStretchCondensed       {display: none; font-stretch: condensed;}
+.specimenStretchNormal          {display: none; font-stretch: normal;}
+.specimenStretchExpanded        {display: none; font-stretch: expanded;}
+.specimenStretchSemiExpanded    {display: none; font-stretch: semi-expanded;}
+.specimenStretchExtraExpanded   {display: none; font-stretch: extra-expanded;}
+.specimenStretchUltraExpanded   {display: none; font-stretch: ultra-expanded;}
+
+.specimenWeight100, .specimenWeight200, .specimenWeight300,
+.specimenWeight400, .specimenWeight500, .specimenWeight600,
+.specimenWeight700, .specimenWeight800, .specimenWeight900{
+    padding: 0ch 1ch;
+    margin: 0;
+    height: 1.25em;
+    overflow: hidden;
+}
+.stretchSpecimenLayout{
+    display: flex;
+    justify-content: space-between;
+}
+.stretchSpecimenTitle{
+    text-align: center;
+    font-weight: 400;
+    font-size: large;
+    margin-bottom: 0;
+}
+.styleSpecimenLayout{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5em;
+}
+.styleSpecimenTitle{
+    text-align: center;
+    font-weight: 400;
+    font-size: medium;
+    margin: 0;
+}
+
+/*----FORMS----*/
+.sidebarAndContent{
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.sidebarTitle{
+    margin-bottom: 0.25em;
+}
+
+label{
+    color: var(--bold-accent);
+    font-size: 0.82em;
+}
+.smallLabel{
+    font-size: 0.75em;
+    text-align: right;
+    margin-right: 1ch;
+}
+
+input{
+    color: var(--content);
+    background-color: var(--background);
+    border: none;
+    border-bottom: solid var(--mild-accent) 1px;
+    accent-color: var(--strong-accent);
+}
+input[type="checkbox"]{
+    transition: all ease-out 200ms;
+    appearance: none;
+    display: inline-block;
+    vertical-align: middle;
+
+    width: 1em;
+    height: 1em;
+    border-radius: 0.18em;
+    
+    outline:none;
+    border: 2px solid var(--content);
+    background-color: var(--background);
+    color: var(--content);
+    cursor: pointer;
+}
+input[type="checkbox"]:checked,
+input[type="radio"]:checked{
+    width: 1em;
+    height: 1em;
+    border-width: 4px;
+    border-color: var(--strong-accent);
+    background-color: var(--strong-accent);
+}
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible{
+    outline: solid 2px var(--strong-accent);
+}
+input[type="checkbox"]:checked:focus-visible,
+input[type="radio"]:checked:focus-visible{    
+    background-color: var(--content);
+}
+
+input[type="radio"]{
+    transition: all ease-out 100ms;
+
+    appearance: none;
+    display: inline-block;
+    vertical-align: middle;
+
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 1em;
+    margin: 0 0.25em;
+    
+    outline:none;
+    border: 2px solid var(--mild-accent);
+    background-color: var(--background);
+    color: var(--content);
+    cursor: pointer;
+}
+
+input[type="text"]{
+    margin: 0.25em 1ch;
+    font-size: 0.82em;
+}
+
+input.mono{
+    font-family: var(--mono-font-family);
+}
+
+.invalid{
+    background-color: var(--invalid-soft);
+    border-bottom-color: var(--invalid-hard);
+}
+.invalid:focus-visible{
+    outline: solid var(--invalid-hard) 2px;
+}
+
+textarea{
+    color: var(--content);
+    background-color: var(--background);
+    margin: 0.25em 1ch;
+
+    border: none;
+    border-bottom: solid var(--mild-accent) 1px;
+    border-left: solid var(--mild-accent) 1px;
+    border-top: solid var(--mild-accent) 1px;
+
+    font-size: medium;
+    text-justify: initial;
+}
+
+select{
+    color: var(--content);
+    margin: 0.25em 1ch;
+    border: solid var(--mild-accent) 1px;
+    border-radius: 0.25em;
+
+    background-color: var(--light-accent);
+}
+
+.fieldList{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+}
+
+.categoryChooser > label,
+.formChecklist > label{
+    position: relative;
+    display: inline-flex;
+    transition: all ease-out, 200ms;
+    cursor: pointer;
+    min-width: 80%;
+    overflow: hidden;
+}
+.categoryChooser > label:hover,
+.formChecklist > label:hover{
+    background-color: var(--light-accent);
+    color: var(--strong-accent);
+    letter-spacing: 0.5pt;
+    overflow: visible;
+}
+.categoryChooser > label:target,
+.formChecklist > label:target{
+    color: var(--content);
+    letter-spacing: -1pt;
+}
+
+.styleShowcase{
+    letter-spacing: initial;
+    position: absolute;
+    left: 100%;
+    padding: 0.25em 0.5ch;
+    border-radius: 0.125em;
+    
+    font-size: 5em;
+    
+    box-shadow: 4px 1px 8px -4px var(--content);
+    color: var(--content);
+    background-color: var(--light-accent);
+    z-index: 1;
+}
