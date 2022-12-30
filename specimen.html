@@ -10,7 +10,7 @@
     <script>
         function retrieveData(){
             RestoreSession();
-            fetch("font-metrics.json")
+            fetch("data/font-metrics.json")
             .then(Response => Response.json())
             .then(data => { generatePage(data); } )
             .then(ChangeFont(0));

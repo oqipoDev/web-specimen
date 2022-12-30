@@ -1,0 +1,58 @@
+[
+    {
+        "name": "times",
+        "idName":"Times",
+        "displayName": "Times New Roman",
+        "web-safe": true,
+        "weigths": ["normal", "bold"],
+        "styles": ["normal", "italic"]
+    }
+    ,{
+        "name": "arial",
+        "idName":"Arial",
+        "displayName": "Arial",
+        "web-safe": true,
+        "weigths": ["normal", "bold"],
+        "styles": ["normal", "italic"]
+    }
+    ,{
+        "name": "verdana",
+        "idName":"Verdana",
+        "displayName": "Verdana",
+        "web-safe": true,
+        "weigths": ["normal", "bold"],
+        "styles": ["normal", "italic"]
+    }
+    ,{
+        "name": "tahoma",
+        "idName":"Tahoma",
+        "displayName": "Tahoma",
+        "web-safe": true,
+        "weigths": ["normal", "bold"],
+        "styles": ["normal"]
+    }
+    ,{
+        "name": "georgia",
+        "idName":"Georgia",
+        "displayName": "Georgia",
+        "web-safe": true,
+        "weigths": ["normal", "bold"],
+        "styles": ["normal", "italic"]
+    }
+    ,{
+        "name": "garamond",
+        "idName":"Garamond",
+        "displayName": "Garamond",
+        "web-safe": true,
+        "weigths": ["normal", "bold"],
+        "styles": ["normal", "italic"]
+    }
+    ,{
+        "name": "Courier-new",
+        "idName":"Courier New",
+        "displayName": "Courier New",
+        "web-safe": true,
+        "weigths": ["normal", "bold"],
+        "styles": ["normal", "italic"]
+    }
+]
