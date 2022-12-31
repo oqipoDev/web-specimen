@@ -1,0 +1,24 @@
+{
+	"lineages":[
+		{
+			"name": "Helvetica",
+			"predecesors": ["Akzidenz-Grotesk"],
+			"typefaces":["Helvetica", "Neue Helvetica", "Neue Haas Grotesk", "Helvetica Now"],
+			"related": {
+				"clones": ["Arial", "Nimbus Sans", "MS Sans Serif"],
+				"sameMetrics":["Arial", "Nimbus Sans L", "Liberation Sans", "FreeSans"]
+			}
+		}
+	],
+	"typefaces":[
+		{
+			"name": "Arial",
+			"lineage": "Helvetica",
+			"foundry": "Monotype",
+			"designers": ["Matthew Carter", "Patricia Saunders"],
+			"license": ["Microsoft Font License"],
+			"inUse": [],
+			"history": ""
+		}
+	]
+}
