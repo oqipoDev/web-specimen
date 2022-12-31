@@ -2,91 +2,121 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <script src="js/BasicUI.js"></script>
-    <script src="js/ElementGenerator.js"></script>
-    <script src="js/FontData.js"></script>
-    <script>
-        function retrieveData(){
-            RestoreSession();
-            fetch("data/font-metrics.json")
-            .then(Response => Response.json())
-            .then(data => { generatePage(data); } )
-            .then(ChangeFont(0));
-        }
-        function generatePage(data){
-            const fontData = new FontData(data);
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="js/BasicUI.js"></script>
+	<script src="js/ElementGenerator.js"></script>
+	<script src="js/FontData.js"></script>
+	<script src="js/panose.js"></script>
+	<script>
+		function retrieveData(){
+			RestoreSession();
+			fetch("data/font-metrics.json")
+			.then(Response => Response.json())
+			.then(data => { generatePage(data); } )
+			.then(ChangeFont(0));
+		}
+		function generatePage(data){
+			const fontData = new FontData(data);
 
-            var sidebar = document.getElementById("sidebar");
-            sidebar = GenerateFontSidebar(fontData, sidebar);
+			var sidebar = document.getElementById("sidebar");
+			sidebar = GenerateFontSidebar(fontData, sidebar);
 
-            if (sessionStorage.getItem("fontData") == null)
-            {
-                sessionStorage.setItem("fontData", JSON.stringify(fontData));
-                console.log("no data found, generating...");
-            }
-        }
-        function ChangeFont(id){
-            var data = JSON.parse(sessionStorage.getItem("fontData"));
+			if (sessionStorage.getItem("fontData") == null)
+			{
+				sessionStorage.setItem("fontData", JSON.stringify(fontData));
+				console.log("no data found, generating...");
+			}
+		}
+		function ChangeFont(id){
+			let data = JSON.parse(sessionStorage.getItem("fontData"));
 
-            var specimenDiv = document.getElementById("specimen");
-            specimenDiv.style.fontFamily = (data.families[id]);
-            
-            var dataSpans = document.getElementsByClassName("replace");
-            for (var i = 0; i < dataSpans.length; i++){
-                {
-                    if (dataSpans[i].getAttribute('replace') == "family"){
-                        dataSpans[i].innerHTML = data.families[id];
-                    }
-                }
-            }
-        }
-    </script>
-    <title>Font - Web Specimen</title>
+			let specimenDiv = document.getElementById("specimen");
+			specimenDiv.style.fontFamily = (data.families[id].name);
+
+			let autoShowDivs = document.getElementsByClassName("showIf");
+			for (let i = 0; i < autoShowDivs.length; i++) {
+				let propName = autoShowDivs[i].getAttribute("showIf");
+				let propValue = autoShowDivs[i].getAttribute("equals");
+				if (propName != undefined && propValue != undefined)
+				{
+					if (propName == "weight"){
+						if (getWeightInFamily(propValue, data.families[id])){
+							autoShowDivs[i].style.display = "inherit";
+						}
+						else autoShowDivs[i].style.display = "none";
+					}
+				}
+			}
+			
+			let panose = document.getElementById("panose");
+			panose.innerHTML = "";
+			for (let i = 0; i < data.families[id].fonts.length; i++){
+				var fontID = data.families[id].fonts[i];
+				var fontPanose = data.fonts[fontID].style.panose;
+
+				panose.innerHTML += 
+					`<div style ="${panoseToCSS(fontPanose)}">
+						<h3> ${data.fonts[fontID].fullName} PANOSE:</h3>
+						<p>${panoseString(fontPanose, true)}</p>
+					</div>`;
+			}			
+			
+			let dataSpans = document.getElementsByClassName("replace");
+			for (let i = 0; i < dataSpans.length; i++){
+				{
+					if (dataSpans[i].getAttribute('replace') == "family"){
+						dataSpans[i].innerHTML = data.families[id].name;
+					}
+				}
+			}
+		}
+	</script>
+	<title>Font - Web Specimen</title>
 </head>
 <body class="noScroll" onload="retrieveData()">
-    <div class="header">
-        <a href="./index.html" class="headerText">
-            <span class="title_Web">Web</span><span class="title_Specimen"> Specimen</span>
-        </a>
-        <nav>
-            <a href="./index.html">Home</a>
-            <a href="./submit.html">Submit</a>
-        </nav>
-        <div class="themeSwitcher" onclick="SwitchTheme()">&#9680;</div>
-    </div>
-    <div class="content">
-        <h1>Browse fonts</h1>
-        <div class="sidebarAndContent">
-            <div class="sidebar scroll" id="sidebar"></div>
-            <div class="content scroll">
-                <div id="specimen">
-                    <h1 id="specimenTitle"><span class="replace" replace="family"></span> - Specimen</h1>
-                    <div class="specimenColumns">
-                        <div class="specimenColumn">
-                            <p style="font-size: 1.5em;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat labore molestiae aliquam doloremque nihil, ipsa, qui in animi iure, ipsum suscipit odio excepturi laboriosam.</p>
-                            <p style="font-size: 1.25em;">Auctor nullam ipsum, donec dui taciti dictum aliquam. Lacus orci tellus sed, per fames quam vestibulum augue. Hac tincidunt leo vitae, himenaeos est ullamcorper, cubilia sem faucibus quam egestas aliquam tellus.</p>
-                            <p style="font-size: 1.15em;">Faucibus etiam per, ullamcorper etiam quisque phasellus. Nec et dui, tortor quisque, cursus sollicitudin congue blandit eros risus mattis. Netus lobortis et maecenas, consectetur posuere praesent, ad eleifend platea est vivamus ac hendrerit eu. Nisi morbi tortor, a ut, sodales per velit tempus congue tempor laoreet.</p>
-                            <p style="font-size: 1em;">Libero fringilla suspendisse justo, vehicula placerat consectetur, class diam sem turpis ipsum vestibulum ante. Mattis viverra etiam, sagittis lectus, bibendum hac volutpat ultricies adipiscing etiam turpis. Duis fringilla senectus, dictumst ultricies, dui condimentum interdum metus nullam. Consequat nec etiam, risus neque nisl torquent sed. Aliquet mollis nisi, pellentesque ultricies nulla porta massa.</p>
-                            <p style="font-size: .82em;">Iaculis non sodales, nisi nunc, lobortis vivamus est himenaeos dapibus aliquet vitae. Purus conubia semper, bibendum mi eleifend sagittis. Sodales suspendisse eget litora, dui arcu placerat vehicula massa. Quisque tortor, lobortis sollicitudin taciti. Dictumst scelerisque etiam platea, ultricies laoreet sit sem rhoncus. Elementum arcu praesent, velit vulputate sapien rutrum. Malesuada adipiscing justo in, placerat ullamcorper elementum, felis tincidunt proin amet vitae eros congue turpis. Phasellus in enim, a orci nibh cursus viverra</p>
-                            <p style="font-size: .75em;">Donec varius tellus, quisque placerat ut taciti sit. Nam enim cubilia volutpat, imperdiet porttitor magna, lorem ornare rhoncus ad aptent habitant amet. Mauris quis placerat eros, habitant urna elementum, vitae habitasse semper eget conubia platea. Aliquam molestie eros ornare, taciti conubia venenatis class proin. Nostra aliquam amet curabitur, quisque ligula hac volutpat scelerisque. Facilisis vehicula, suspendisse adipiscing pulvinar velit. Morbi cras condimentum, ipsum curabitur arcu fermentum augue. Aptent sociosqu nec, ornare justo, dapibus nostra torquent egestas lacus laoreet</p>
-                        </div>
-                        <div class="specimenColumn" style="font-size: x-large;">
-                            <p style="font-weight: 100;"><span class="replace" replace="family"></span> Thin</p>
-                            <p style="font-weight: 200;"><span class="replace" replace="family"></span> ExtraLight</p>
-                            <p style="font-weight: 300;"><span class="replace" replace="family"></span> Light</p>
-                            <p style="font-weight: 400;"><span class="replace" replace="family"></span> Regular</p>
-                            <p style="font-weight: 500;"><span class="replace" replace="family"></span> Medium</p>
-                            <p style="font-weight: 600;"><span class="replace" replace="family"></span> SemiBold</p>
-                            <p style="font-weight: 700;"><span class="replace" replace="family"></span> Bold</p>
-                            <p style="font-weight: 800;"><span class="replace" replace="family"></span> ExtraBold</p>
-                            <p style="font-weight: 900;"><span class="replace" replace="family"></span> Black</p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-    </div>
+	<div class="header">
+		<a href="./index.html" class="headerText">
+			<span class="title_Web">Web</span><span class="title_Specimen"> Specimen</span>
+		</a>
+		<nav>
+			<a href="./index.html">Home</a>
+			<a href="./submit.html">Submit</a>
+		</nav>
+		<div class="themeSwitcher" onclick="SwitchTheme()">&#9680;</div>
+	</div>
+	<div class="content">
+		<h1>Browse fonts</h1>
+		<div class="sidebarAndContent">
+			<div class="sidebar scroll" id="sidebar"></div>
+			<div class="content scroll">
+				<div id="specimen">
+					<h1 id="specimenTitle"><span class="replace" replace="family"></span> - Specimen</h1>
+					<div class="specimenColumns">
+						<div class="specimenColumn">
+							<p style="font-size: 1.5em;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat labore molestiae aliquam doloremque nihil, ipsa, qui in animi iure, ipsum suscipit odio excepturi laboriosam.</p>
+							<p style="font-size: 1.25em;">Auctor nullam ipsum, donec dui taciti dictum aliquam. Lacus orci tellus sed, per fames quam vestibulum augue. Hac tincidunt leo vitae, himenaeos est ullamcorper, cubilia sem faucibus quam egestas aliquam tellus.</p>
+							<p style="font-size: 1.15em;">Faucibus etiam per, ullamcorper etiam quisque phasellus. Nec et dui, tortor quisque, cursus sollicitudin congue blandit eros risus mattis. Netus lobortis et maecenas, consectetur posuere praesent, ad eleifend platea est vivamus ac hendrerit eu. Nisi morbi tortor, a ut, sodales per velit tempus congue tempor laoreet.</p>
+							<p style="font-size: 1em;">Libero fringilla suspendisse justo, vehicula placerat consectetur, class diam sem turpis ipsum vestibulum ante. Mattis viverra etiam, sagittis lectus, bibendum hac volutpat ultricies adipiscing etiam turpis. Duis fringilla senectus, dictumst ultricies, dui condimentum interdum metus nullam. Consequat nec etiam, risus neque nisl torquent sed. Aliquet mollis nisi, pellentesque ultricies nulla porta massa.</p>
+							<p style="font-size: .82em;">Iaculis non sodales, nisi nunc, lobortis vivamus est himenaeos dapibus aliquet vitae. Purus conubia semper, bibendum mi eleifend sagittis. Sodales suspendisse eget litora, dui arcu placerat vehicula massa. Quisque tortor, lobortis sollicitudin taciti. Dictumst scelerisque etiam platea, ultricies laoreet sit sem rhoncus. Elementum arcu praesent, velit vulputate sapien rutrum. Malesuada adipiscing justo in, placerat ullamcorper elementum, felis tincidunt proin amet vitae eros congue turpis. Phasellus in enim, a orci nibh cursus viverra</p>
+							<p style="font-size: .75em;">Donec varius tellus, quisque placerat ut taciti sit. Nam enim cubilia volutpat, imperdiet porttitor magna, lorem ornare rhoncus ad aptent habitant amet. Mauris quis placerat eros, habitant urna elementum, vitae habitasse semper eget conubia platea. Aliquam molestie eros ornare, taciti conubia venenatis class proin. Nostra aliquam amet curabitur, quisque ligula hac volutpat scelerisque. Facilisis vehicula, suspendisse adipiscing pulvinar velit. Morbi cras condimentum, ipsum curabitur arcu fermentum augue. Aptent sociosqu nec, ornare justo, dapibus nostra torquent egestas lacus laoreet</p>
+						</div>
+						<div class="specimenColumn" style="font-size: x-large;">
+							<p id="panose" style="font-size: small;"></p>
+							<p class="showIf" showIf="weight" equals=100 style="font-weight: 100;"><span class="replace" replace="family"></span> Thin</p>
+							<p class="showIf" showIf="weight" equals=200 style="font-weight: 200;"><span class="replace" replace="family"></span> ExtraLight</p>
+							<p class="showIf" showIf="weight" equals=300 style="font-weight: 300;"><span class="replace" replace="family"></span> Light</p>
+							<p class="showIf" showIf="weight" equals=400 style="font-weight: 400;"><span class="replace" replace="family"></span> Regular</p>
+							<p class="showIf" showIf="weight" equals=500 style="font-weight: 500;"><span class="replace" replace="family"></span> Medium</p>
+							<p class="showIf" showIf="weight" equals=600 style="font-weight: 600;"><span class="replace" replace="family"></span> SemiBold</p>
+							<p class="showIf" showIf="weight" equals=700 style="font-weight: 700;"><span class="replace" replace="family"></span> Bold</p>
+							<p class="showIf" showIf="weight" equals=800 style="font-weight: 800;"><span class="replace" replace="family"></span> ExtraBold</p>
+							<p class="showIf" showIf="weight" equals=900 style="font-weight: 900;"><span class="replace" replace="family"></span> Black</p>
+					</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
 </body>
 </html>

@@ -16,6 +16,10 @@
     --first-heading: 1.25rem;
 }
 
+/* {
+    transition: all ease-out 200ms;
+}*/
+
 body{
     padding: 0 2.5%;
     margin: 0;
@@ -265,29 +269,43 @@ nav > a:hover, nav > a:focus-visible{
     font-size: 2em;
 }
 
-.specimenWeight100 { display: none; font-weight: 100;}
-.specimenWeight200 { display: none; font-weight: 200;}
-.specimenWeight300 { display: none; font-weight: 300;}
-.specimenWeight400 { display: none; font-weight: 400;}
-.specimenWeight500 { display: none; font-weight: 500;}
-.specimenWeight600 { display: none; font-weight: 600;}
-.specimenWeight700 { display: none; font-weight: 700;}
-.specimenWeight800 { display: none; font-weight: 800;}
-.specimenWeight900 { display: none; font-weight: 900;}
+.specimenWeight100, .specimenWeight200, .specimenWeight300,
+.specimenWeight400, .specimenWeight500, .specimenWeight600,
+.specimenWeight700, .specimenWeight800, .specimenWeight900,
+.specimenStyleNormal, .specimenStyleItalic, .specimenStyleOblique,
+.specimenStretchUltraCondensed, .specimenStretchUltraExpanded,
+.specimenStretchExtraCondensed, .specimenStretchExtraExpanded,
+.specimenStretchSemiCondensed, .specimenStretchSemiExpanded,
+.specimenStretchCondensed, .specimenStretchExpanded, .specimenStretchNormal{
+    max-height: 0;
+    max-width: 0;
+    overflow: hidden;
+    transition: max-height ease-out 1500ms, max-width ease-out 500ms;
+}
 
-.specimenStyleNormal    {display: none; font-style: normal;}
-.specimenStyleItalic    {display: none; font-style: italic;}
-.specimenStyleOblique   {display: none; font-style: oblique;}
+.specimenWeight100 { font-weight: 100;}
+.specimenWeight200 { font-weight: 200;}
+.specimenWeight300 { font-weight: 300;}
+.specimenWeight400 { font-weight: 400;}
+.specimenWeight500 { font-weight: 500;}
+.specimenWeight600 { font-weight: 600;}
+.specimenWeight700 { font-weight: 700;}
+.specimenWeight800 { font-weight: 800;}
+.specimenWeight900 { font-weight: 900;}
 
-.specimenStretchUltraCondensed  {display: none; font-stretch: ultra-condensed;}
-.specimenStretchExtraCondensed  {display: none; font-stretch: extra-condensed;}
-.specimenStretchSemiCondensed   {display: none; font-stretch: semi-condensed;}
-.specimenStretchCondensed       {display: none; font-stretch: condensed;}
-.specimenStretchNormal          {display: none; font-stretch: normal;}
-.specimenStretchExpanded        {display: none; font-stretch: expanded;}
-.specimenStretchSemiExpanded    {display: none; font-stretch: semi-expanded;}
-.specimenStretchExtraExpanded   {display: none; font-stretch: extra-expanded;}
-.specimenStretchUltraExpanded   {display: none; font-stretch: ultra-expanded;}
+.specimenStyleNormal    { font-style: normal;}
+.specimenStyleItalic    { font-style: italic;}
+.specimenStyleOblique   { font-style: oblique;}
+
+.specimenStretchUltraCondensed  { font-stretch: ultra-condensed;}
+.specimenStretchExtraCondensed  { font-stretch: extra-condensed;}
+.specimenStretchSemiCondensed   { font-stretch: semi-condensed;}
+.specimenStretchCondensed       { font-stretch: condensed;}
+.specimenStretchNormal          { font-stretch: normal;}
+.specimenStretchExpanded        { font-stretch: expanded;}
+.specimenStretchSemiExpanded    { font-stretch: semi-expanded;}
+.specimenStretchExtraExpanded   { font-stretch: extra-expanded;}
+.specimenStretchUltraExpanded   { font-stretch: ultra-expanded;}
 
 .specimenWeight100, .specimenWeight200, .specimenWeight300,
 .specimenWeight400, .specimenWeight500, .specimenWeight600,
@@ -295,7 +313,7 @@ nav > a:hover, nav > a:focus-visible{
     padding: 0ch 1ch;
     margin: 0;
     height: 1.25em;
-    overflow: hidden;
+    white-space: nowrap;
 }
 .stretchSpecimenLayout{
     display: flex;

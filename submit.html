@@ -1,303 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <script src="js/BasicUI.js"></script>
-    <script src="js/ElementGenerator.js"></script>
-    <script>
-        function ChangeFont(input){
-            let name = input.value;
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="js/BasicUI.js"></script>
+	<script src="js/ElementGenerator.js"></script>
+	<script>
+		function ChangeFont(input){
+			let name = input.value;
 
-            if (name == null) return;
+			if (name == null) return;
 
-            var ids = document.getElementsByClassName("fontName");
-                for (let i = 0; i < ids.length; i++){
-                    ids[i].innerHTML = name;
-            }
+			var ids = document.getElementsByClassName("fontName");
+				for (let i = 0; i < ids.length; i++){
+					ids[i].innerHTML = name;
+			}
 
-            if (checkFont(name))
-            {
-                document.getElementById("submissionSpecimen").style.fontFamily = name;
+			if (checkFont(name))
+			{
+				document.getElementById("submissionSpecimen").style.fontFamily = name;
 
-                var ids = document.getElementsByClassName("fontID");
-                for (let i = 0; i < ids.length; i++){
-                    ids[i].innerHTML = name;
-                }
-                var i = document.createElement("input");
-                input.classList.remove("invalid");
-            }
-            else{
-                input.classList.add("invalid");
-            }
-            }
-        function SwitchSpecElement(input, element, ArrayOfConnected){
-            var specElem = document.getElementById(element + "Specimen");
+				var ids = document.getElementsByClassName("fontID");
+				for (let i = 0; i < ids.length; i++){
+					ids[i].innerHTML = name;
+				}
+				var i = document.createElement("input");
+				input.classList.remove("invalid");
+			}
+			else{
+				input.classList.add("invalid");
+			}
+			}
+		function SwitchSpecElement(input, element, ArrayOfConnected){
+			var specElem = document.getElementById(element + "Specimen");
 
-            var output = input.checked;
-            //Handle connected elements
-            if(ArrayOfConnected != undefined){
-                ArrayOfConnected.forEach(element => {
-                    output = output || element.checked;
-                });
-            }
+			var output = input.checked;
+			//Handle connected elements
+			if(ArrayOfConnected != undefined){
+				ArrayOfConnected.forEach(element => {
+					output = output || element.checked;
+				});
+			}
 
-            if(output){
-                specElem.style.display = 'initial';
-            }
-            else specElem.style.display = 'none';
-        }
+			if(output){
+				specElem.style.maxHeight = '90em';
+			}
+			else specElem.style.maxHeight = '0';
+		}
 
-        function SwitchSpecElements(input, Prop, Value){
-            var elems = document.getElementsByClassName('specimen' + Prop + Value);
-            if(input.checked){
-                for(let i = 0; i < elems.length; i++){
-                    elems[i].style.display = 'block';
-                }
-            }
-            else{
-                for(let i = 0; i < elems.length; i++){
-                   elems[i].style.display = 'none';
-                }
-            }
-        }
-        function GenerateWeightSpecimen(){
-            RestoreSession();
-            var cooldiv = document.getElementById("styleSpecimen");
-            cooldiv.appendChild(generateStyleSpecimen());
-        }
-    </script>
-    <title>Web Specimen - Start page</title>
+		function SwitchSpecElements(input, Prop, Value){
+			var elems = document.getElementsByClassName('specimen' + Prop + Value);
+			if(input.checked){
+				for(let i = 0; i < elems.length; i++){
+					elems[i].style.maxHeight = '100vh';
+					elems[i].style.maxWidth = '100vw';
+				}
+			}
+			else{
+				for(let i = 0; i < elems.length; i++){
+					elems[i].style.maxWidth = '0';
+					elems[i].style.maxHeight = '0';
+				}
+			}
+		}
+		function GenerateWeightSpecimen(){
+			RestoreSession();
+			var cooldiv = document.getElementById("styleSpecimen");
+			cooldiv.appendChild(generateStyleSpecimen());
+		}
+	</script>
+	<title>Web Specimen - Start page</title>
 </head>
 <body onload="GenerateWeightSpecimen()">
-    <div class="header">
-        <a href="./index.html" class="headerText">
-            <span class="title_Web">Web</span><span class="title_Specimen"> Specimen</span>
-        </a>
-        <nav>
-            <a href="./index.html">Home</a>
-            <a href="./specimen.html">Specimen Browser</a>
-        </nav>
-        <div class="themeSwitcher" onclick="SwitchTheme()">&#9680;</div>
-    </div>
-    <div class="content">
-        <h1>Submit a new font</h1>
-        <div class="sidebarAndContent">
-            <form class="sidebar" action="">
-                <h2 class="sidebarTitle">
-                    Basic Information
-                </h2>
-                
-                <div class="fieldList">
-                    <label for="fontName" class="smallLabel">Name</label>
-                    <input type="text" name="fontName" id="fontName" placeholder="Times New Roman" oninput="ChangeFont(fontName)">
-                    <br><label class="smallLabel">Using <span class="fontID">Archivo</span></label>
-                </div>
+	<div class="header">
+		<a href="./index.html" class="headerText">
+			<span class="title_Web">Web</span><span class="title_Specimen"> Specimen</span>
+		</a>
+		<nav>
+			<a href="./index.html">Home</a>
+			<a href="./specimen.html">Specimen Browser</a>
+		</nav>
+		<div class="themeSwitcher" onclick="SwitchTheme()">&#9680;</div>
+	</div>
+	<div class="content">
+		<h1>Submit a new font</h1>
+		<div class="sidebarAndContent">
+			<form class="sidebar" action="">
+				<h2 class="sidebarTitle">
+					Basic Information
+				</h2>
+				
+				<div class="fieldList">
+					<label for="fontName" class="smallLabel">Name</label>
+					<input type="text" name="fontName" id="fontName" placeholder="Times New Roman" oninput="ChangeFont(fontName)">
+					<br><label class="smallLabel">Using <span class="fontID">Archivo</span></label>
+				</div>
 
-                <h2 class="sidebarTitle">
-                    Details
-                </h2>
-                <div class="fieldList">
-                    <label for="foundryName" class="smallLabel">Foundry</label>
-                    <input type="text" name="foundryName" id="foundryName" placeholder="Monotype">
-                    <label for="designer" class="smallLabel">Designer</label>
-                    <input type="text" name="designer" id="designer" placeholder="Stanley Morrison">
-                    <label for="collaborators" class="smallLabel">Collaborators</label>
-                    <input type="text" name="collaborators" id="collaborators" placeholder="Victor Lardent">
-                    <label for="date" class="smallLabel">Release Date</label>
-                    <input type="number" name="date" id="date" placeholder="1932">
-                    <label for="fontStyle" class="smallLabel">Style</label>
-                    <div class="categoryChooser">
-                        <input type="radio" name="fontStyle" id="oldStyle" value="oldStyle">
-                        <label for="oldStyle">Oldstyle
-                            <div class="styleShowcase" style="font-family: 'Noto Serif', Times;">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="modernStyle" value="modern">
-                        <label for="modernStyle">Modern
-                            <div class="styleShowcase" style="font-family: 'Bodoni MT';">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="slabStyle" value="slab">
-                        <label for="slabStyle">Slab
-                            <div class="styleShowcase" style="font-family: Rockwell, 'Roboto Slab';">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="grotesqueStyle" value="grotesque">
-                        <label for="grotesqueStyle">Grotesque
-                            <div class="styleShowcase" style="font-family: Helvetica, Arial, Roboto;">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="geometricStyle" value="geometric">
-                        <label for="geometricStyle">Geometric
-                            <div class="styleShowcase" style="font-family: Futura, Jost, Poppins, 'Century Gothic';">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="humanistStyle" value="humanist">
-                        <label for="humanistStyle">Humanist
-                            <div class="styleShowcase" style="font-family: 'Linux Biolinum G', 'Caladea';">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="monospaceStyle" value="monospace">
-                        <label for="monospaceStyle">Monospace
-                            <div class="styleShowcase" style="font-family: 'OCR A', 'Source Code Pro', Consolas, Courier;">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="handwritingStyle" value="handwriting">
-                        <label for="handwritingStyle">Handwriting
-                            <div class="styleShowcase" style="font-family: 'Monotype Corsiva', 'Comic Sans MS';">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="skeuomorphStyle" value="skeuomorph">
-                        <label for="skeuomorphStyle">Skeumorphic
-                            <div class="styleShowcase" style="font-family: Stencil, Playbill;">Abg</div></label><br>
-                        <input type="radio" name="fontStyle" id="symbolStyle" value="symbol">
-                        <label for="symbolStyle">Symbol
-                            <div class="styleShowcase" style="font-family: Wingdings, Webdings;">Abg</div></label><br>
-                    </div>
-                </div>
-            
-                <div class="formChecklist">
-                    <h2 class="sidebarTitle">
-                        Intended use
-                    </h2>
-                    <input type="checkbox" name="display" id="display" checked="true" onchange="SwitchSpecElement(display, 'display')">
-                    <label for="display">Display</label><br>
-                    <input type="checkbox" name="body_p" id="body_p" checked="true" onchange="SwitchSpecElement(body_p, 'body', [body_s])">
-                    <label for="body_p">Body (print)</label><br>
-                    <input type="checkbox" name="body_s" id="body_s" checked="true" onchange="SwitchSpecElement(body_s, 'body', [body_p])">
-                    <label for="body_s">Body (digital)</label><br>
-                </div>
+				<h2 class="sidebarTitle">
+					Details
+				</h2>
+				<div class="fieldList">
+					<label for="foundryName" class="smallLabel">Foundry</label>
+					<input type="text" name="foundryName" id="foundryName" placeholder="Monotype">
+					<label for="designer" class="smallLabel">Designer</label>
+					<input type="text" name="designer" id="designer" placeholder="Stanley Morrison">
+					<label for="collaborators" class="smallLabel">Collaborators</label>
+					<input type="text" name="collaborators" id="collaborators" placeholder="Victor Lardent">
+					<label for="date" class="smallLabel">Release Date</label>
+					<input type="number" name="date" id="date" placeholder="1932">
+					<label for="fontStyle" class="smallLabel">Style</label>
+					<div class="categoryChooser">
+						<input type="radio" name="fontStyle" id="oldStyle" value="oldStyle">
+						<label for="oldStyle">Oldstyle
+							<div class="styleShowcase" style="font-family: 'Noto Serif', Georgia;">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="transitionalStyle" value="transitional">
+						<label for="transitionalStyle">Transitional
+							<div class="styleShowcase" style="font-family: Times;">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="modernStyle" value="modern">
+						<label for="modernStyle">Modern
+							<div class="styleShowcase" style="font-family: 'Bodoni MT';">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="slabStyle" value="slab">
+						<label for="slabStyle">Slab
+							<div class="styleShowcase" style="font-family: Rockwell, 'Roboto Slab';">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="grotesqueStyle" value="grotesque">
+						<label for="grotesqueStyle">Grotesque
+							<div class="styleShowcase" style="font-family: Helvetica, Arial, Roboto;">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="geometricStyle" value="geometric">
+						<label for="geometricStyle">Geometric
+							<div class="styleShowcase" style="font-family: Futura, Jost, Poppins, 'Century Gothic';">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="humanistStyle" value="humanist">
+						<label for="humanistStyle">Humanist
+							<div class="styleShowcase" style="font-family: 'Linux Biolinum G', 'Gabriola';">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="monospaceStyle" value="monospace">
+						<label for="monospaceStyle">Monospace
+							<div class="styleShowcase" style="font-family: 'OCR A', 'Source Code Pro', Consolas, Courier;">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="calligraphyStyle" value="calligraphy">
+						<label for="calligraphyStyle">Calligraphy
+							<div class="styleShowcase" style="font-family: 'Monotype Corsiva';">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="handwritingStyle" value="handwriting">
+						<label for="handwritingStyle">Handwriting
+							<div class="styleShowcase" style="font-family: 'Segoe Print', 'MV Boli', 'Comic Sans MS';">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="skeuomorphStyle" value="skeuomorph">
+						<label for="skeuomorphStyle">Skeumorphic
+							<div class="styleShowcase" style="font-family: Stencil, Playbill;">Maxilegs</div></label><br>
+						<input type="radio" name="fontStyle" id="symbolStyle" value="symbol">
+						<label for="symbolStyle">Symbol
+							<div class="styleShowcase" style="font-family: Wingdings, Webdings;">Maxilegs</div></label><br>
+					</div>
+				</div>
+			
+				<div class="formChecklist">
+					<h2 class="sidebarTitle">
+						Intended use
+					</h2>
+					<input type="checkbox" name="display" id="display" checked="true" onchange="SwitchSpecElement(display, 'display')">
+					<label for="display">Display</label><br>
+					<input type="checkbox" name="body_p" id="body_p" checked="true" onchange="SwitchSpecElement(body_p, 'body', [body_s])">
+					<label for="body_p">Body (print)</label><br>
+					<input type="checkbox" name="body_s" id="body_s" checked="true" onchange="SwitchSpecElement(body_s, 'body', [body_p])">
+					<label for="body_s">Body (digital)</label><br>
+				</div>
 
-                <div class="formChecklist">
-                    <h2 class="sidebarTitle">
-                        Stretch
-                    </h2>
-                    <input type="checkbox" name="stretchUltraCond" id="stretchUltraCond" onchange="SwitchSpecElements(stretchUltraCond, 'Stretch', 'UltraCondensed')">
-                    <label for="stretchUltraCond">Ultra-Condensed</label><br>
-                    <input type="checkbox" name="stretchExtraCond" id="stretchExtraCond" onchange="SwitchSpecElements(stretchExtraCond, 'Stretch', 'ExtraCondensed')">
-                    <label for="stretchExtraCond">Extra-Condensed</label><br>
-                    <input type="checkbox" name="stretchCond" id="stretchCond" onchange="SwitchSpecElements(stretchCond, 'Stretch', 'Condensed')">
-                    <label for="stretchCond">Condensed</label><br>
-                    <input type="checkbox" name="stretchSemiCond" id="stretchSemiCond" onchange="SwitchSpecElements(stretchSemiCond, 'Stretch', 'SemiCondensed')">
-                    <label for="stretchSemiCond">Semi-Condensed</label><br>
-                    <input type="checkbox" name="stretchNorm" id="stretchNorm" onchange="SwitchSpecElements(stretchNorm, 'Stretch', 'Normal')">
-                    <label for="stretchNorm">Normal</label><br>
-                    <input type="checkbox" name="stretchSemiExpa" id="stretchSemiExpa" onchange="SwitchSpecElements(stretchSemiExpa, 'Stretch', 'SemiExpanded')">
-                    <label for="stretchSemiExpa">Semi-Expanded</label><br>
-                    <input type="checkbox" name="stretchExpa" id="stretchExpa" onchange="SwitchSpecElements(stretchExpa, 'Stretch', 'Expanded')">
-                    <label for="stretchExpa">Expanded</label><br>
-                    <input type="checkbox" name="stretchExtraExpa" id="stretchExtraExpa" onchange="SwitchSpecElements(stretchExtraExpa, 'Stretch', 'ExtraExpanded')">
-                    <label for="stretchExtraExpa">Extra-Expanded</label><br>
-                    <input type="checkbox" name="stretchUltraExpa" id="stretchUltraExpa" onchange="SwitchSpecElements(stretchUltraExpa, 'Stretch', 'UltraExpanded')">
-                    <label for="stretchUltraExpa">Ultra-Expanded</label><br>
-                </div>
+				<div class="formChecklist">
+					<h2 class="sidebarTitle">
+						Stretch
+					</h2>
+					<input type="checkbox" name="stretchUltraCond" id="stretchUltraCond" onchange="SwitchSpecElements(stretchUltraCond, 'Stretch', 'UltraCondensed')">
+					<label for="stretchUltraCond">Ultra-Condensed</label><br>
+					<input type="checkbox" name="stretchExtraCond" id="stretchExtraCond" onchange="SwitchSpecElements(stretchExtraCond, 'Stretch', 'ExtraCondensed')">
+					<label for="stretchExtraCond">Extra-Condensed</label><br>
+					<input type="checkbox" name="stretchCond" id="stretchCond" onchange="SwitchSpecElements(stretchCond, 'Stretch', 'Condensed')">
+					<label for="stretchCond">Condensed</label><br>
+					<input type="checkbox" name="stretchSemiCond" id="stretchSemiCond" onchange="SwitchSpecElements(stretchSemiCond, 'Stretch', 'SemiCondensed')">
+					<label for="stretchSemiCond">Semi-Condensed</label><br>
+					<input type="checkbox" name="stretchNorm" id="stretchNorm" onchange="SwitchSpecElements(stretchNorm, 'Stretch', 'Normal')">
+					<label for="stretchNorm">Normal</label><br>
+					<input type="checkbox" name="stretchSemiExpa" id="stretchSemiExpa" onchange="SwitchSpecElements(stretchSemiExpa, 'Stretch', 'SemiExpanded')">
+					<label for="stretchSemiExpa">Semi-Expanded</label><br>
+					<input type="checkbox" name="stretchExpa" id="stretchExpa" onchange="SwitchSpecElements(stretchExpa, 'Stretch', 'Expanded')">
+					<label for="stretchExpa">Expanded</label><br>
+					<input type="checkbox" name="stretchExtraExpa" id="stretchExtraExpa" onchange="SwitchSpecElements(stretchExtraExpa, 'Stretch', 'ExtraExpanded')">
+					<label for="stretchExtraExpa">Extra-Expanded</label><br>
+					<input type="checkbox" name="stretchUltraExpa" id="stretchUltraExpa" onchange="SwitchSpecElements(stretchUltraExpa, 'Stretch', 'UltraExpanded')">
+					<label for="stretchUltraExpa">Ultra-Expanded</label><br>
+				</div>
 
-                <div class="formChecklist">
-                    <h2 class="sidebarTitle">
-                        Styles
-                    </h2>
-                    <input type="checkbox" name="styleNorm" id="styleNorm" onchange="SwitchSpecElements(styleNorm, 'Style', 'Normal')">
-                    <label for="styleNorm">Normal</label><br>
-                    <input type="checkbox" name="styleItal" id="styleItal" onchange="SwitchSpecElements(styleItal, 'Style', 'Italic')">
-                    <label for="styleItal">Italics</label><br>
-                    <input type="checkbox" name="styleObli" id="styleObli" onchange="SwitchSpecElements(styleObli, 'Style', 'Oblique')">
-                    <label for="styleObli">Oblique</label><br>
-                </div>
-                
-                <div class="formChecklist">
-                    <h2 class="sidebarTitle">
-                        Weights
-                    </h2>
-                    <input type="checkbox" name="weight100" id="weight100" onchange="SwitchSpecElements(weight100, 'Weight', '100')">
-                    <label for="weight100">100 (Thin)</label><br>
-                    <input type="checkbox" name="weight200" id="weight200" onchange="SwitchSpecElements(weight200, 'Weight', '200')">
-                    <label for="weight200">200 (ExtraLight)</label><br>
-                    <input type="checkbox" name="weight300" id="weight300" onchange="SwitchSpecElements(weight300, 'Weight', '300')">
-                    <label for="weight300">300 (Light)</label><br>
-                    <input type="checkbox" name="weight400" id="weight400" onchange="SwitchSpecElements(weight400, 'Weight', '400')">
-                    <label for="weight400">400 (Regular)</label><br>
-                    <input type="checkbox" name="weight500" id="weight500" onchange="SwitchSpecElements(weight500, 'Weight', '500')">
-                    <label for="weight500">500 (Medium)</label><br>
-                    <input type="checkbox" name="weight600" id="weight600" onchange="SwitchSpecElements(weight600, 'Weight', '600')">
-                    <label for="weight600">600 (SemiBold)</label><br>
-                    <input type="checkbox" name="weight700" id="weight700" onchange="SwitchSpecElements(weight700, 'Weight', '700')">
-                    <label for="weight700">700 (Bold)</label><br>
-                    <input type="checkbox" name="weight800" id="weight800" onchange="SwitchSpecElements(weight800, 'Weight', '800')">
-                    <label for="weight800">800 (ExtraBold)</label><br>
-                    <input type="checkbox" name="weight900" id="weight900" onchange="SwitchSpecElements(weight900, 'Weight', '900')">
-                    <label for="weight900">900 (Black)</label><br>
-                </div>
-            
-                <div class="formChecklist">
-                    <h2 class="sidebarTitle">
-                        Characters
-                    </h2>
-                    <input type="checkbox" name="charASCII" id="charASCII">
-                    <label for="charASCII">ASCII</label><br>
-                    <input type="checkbox" name="charLat" id="charLat">
-                    <label for="charLat">Latin</label><br>
-                    <input type="checkbox" name="charLat-Ex" id="charLat-Ex">
-                    <label for="charLat-Ex">Latin Extended</label><br>
-                    <input type="checkbox" name="charIPA" id="charIPA">
-                    <label for="charIPA">IPA</label><br>
-                    <input type="checkbox" name="charGrk" id="charGrk">
-                    <label for="charGrk">Greek</label><br>
-                    <input type="checkbox" name="charCyr" id="charCyr">
-                    <label for="charCyr">Cyrilic</label><br>
-                    <input type="checkbox" name="charArm" id="charArm">
-                    <label for="charArm">Armenian</label><br>
-                    <input type="checkbox" name="charHeb" id="charHeb">
-                    <label for="charHeb">Hebrew</label><br>
-                    <input type="checkbox" name="charArb" id="charArb">
-                    <label for="charArb">Arabic</label><br>
-                    <input type="checkbox" name="charSyr" id="charSyr">
-                    <label for="charSyr">Syriac</label><br>
-                </div>
-                <h2 class="sidebarTitle">
-                    Details
-                </h2>
-                <div class="fieldList">
-                    <label for="history" class="smallLabel">History</label>
-                    <textarea rows="8" name="history" id="history"></textarea>
-                    <label for="historySourceName" class="smallLabel">Source</label>
-                    <input type="text" name="historySourceName" id="historySourceName" placeholder="Wikipedia">
-                    <label for="historySourceLink" class="smallLabel">Link</label>
-                    <input type="text" name="historySourceLink" id="historySourceLink" class="mono" placeholder="https://en.wikipedia.org/wiki/Times_New_Roman">
-                </div>
-            </form>
-            <div id="submissionSpecimen">
-                <h1 class="specimenTitle">
-                    <span class="fontName">Archivo</span>
-                </h1>
-                <div id="displaySpecimen">
-                    <div class="displaySpecimenLayout" style="text-align: center;">
-                        <p class="noSpacing" style="font-size: 2.5em; font-weight: bold; font-style: italic;">
-                            Lorem, ipsum dolor sit amet.</p>
-                        <p class="noSpacing" style="font-size: 1.25em; font-weight: normal; font-style: normal;">
-                            Dolore fugit officiis voluptatibus aliquid explicabo nostrum.</p>
-                        <p class="noSpacing" style="font-size: 1.75em; font-weight: normal; font-style: normal;">
-                            Facere quisquam voluptates ipsam culpa.</p>
-                        <p class="noSpacing" style="font-size: 3em; font-weight: bold; font-style: normal;">
-                            Corporis corro expedita.</p>
-                        <p class="noSpacing" style="font-size: 2.5em; font-weight: normal; font-style: italic;">
-                            Quibusdam inventore dolorem.</p>
-                    </div>
-                </div>
-                <div id="bodySpecimen">
-                    <div class="bodySpecimenLayout">
-                        <div class="noSpacing" style="font-size: 1em; text-align:justify;">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium ducimus velit voluptatum quidem quasi maiores, error expedita provident natus vero nam ipsam, alias nobis nisi, temporibus facere assumenda quibusdam!</p>
-                            <p>Incidunt fugiat quidem repellendus perspiciatis accusantium dolore sed magnam exercitationem totam, corrupti assumenda laudantium nostrum aliquid iste adipisci at? Aut vero ut sapiente rem tenetur est rerum impedit omnis quod.</p>
-                            <p>Odit a quaerat in labore amet. Nemo earum, voluptas suscipit labore commodi aliquam corrupti ipsam delectus voluptates? Itaque voluptatibus, nobis facilis eius expedita nam omnis placeat libero deleniti reiciendis dolorem?</p>
-                            <p>Illum error quisquam maxime facilis veniam exercitationem dolores a, voluptate praesentium quae magnam minima aliquam molestias non inventore, alias laborum sapiente, sunt ducimus quidem reprehenderit iure! Sunt consequatur voluptates ducimus.</p>
-                            <p>Nobis amet quod mollitia officia, adipisci veniam rem iusto, nisi delectus animi placeat dolores labore eveniet cupiditate numquam laborum, hic aliquam fugiat voluptatum unde eos ex laudantium corporis? Placeat, ex!</p>
-                        </div>
-                        <div class="noSpacing" style="font-size: 8px;">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium ducimus velit voluptatum quidem quasi maiores, error expedita provident natus vero nam ipsam, alias nobis nisi, temporibus facere assumenda quibusdam!</p>
-                            <p>Incidunt fugiat quidem repellendus perspiciatis accusantium dolore sed magnam exercitationem totam, corrupti assumenda laudantium nostrum aliquid iste adipisci at? Aut vero ut sapiente rem tenetur est rerum impedit omnis quod.</p>
-                            <p>Odit a quaerat in labore amet. Nemo earum, voluptas suscipit labore commodi aliquam corrupti ipsam delectus voluptates? Itaque voluptatibus, nobis facilis eius expedita nam omnis placeat libero deleniti reiciendis dolorem?</p>
-                            <p>Illum error quisquam maxime facilis veniam exercitationem dolores a, voluptate praesentium quae magnam minima aliquam molestias non inventore, alias laborum sapiente, sunt ducimus quidem reprehenderit iure! Sunt consequatur voluptates ducimus.</p>
-                            <p>Nobis amet quod mollitia officia, adipisci veniam rem iusto, nisi delectus animi placeat dolores labore eveniet cupiditate numquam laborum, hic aliquam fugiat voluptatum unde eos ex laudantium corporis? Placeat, ex!</p>
-                        </div>
-                        <div class="noSpacing" style="font-size: 0.75em;">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium ducimus velit voluptatum quidem quasi maiores, error expedita provident natus vero nam ipsam, alias nobis nisi, temporibus facere assumenda quibusdam!</p>
-                            <p>Incidunt fugiat quidem repellendus perspiciatis accusantium dolore sed magnam exercitationem totam, corrupti assumenda laudantium nostrum aliquid iste adipisci at? Aut vero ut sapiente rem tenetur est rerum impedit omnis quod.</p>
-                            <p>Odit a quaerat in labore amet. Nemo earum, voluptas suscipit labore commodi aliquam corrupti ipsam delectus voluptates? Itaque voluptatibus, nobis facilis eius expedita nam omnis placeat libero deleniti reiciendis dolorem?</p>
-                            <p>Illum error quisquam maxime facilis veniam exercitationem dolores a, voluptate praesentium quae magnam minima aliquam molestias non inventore, alias laborum sapiente, sunt ducimus quidem reprehenderit iure! Sunt consequatur voluptates ducimus.</p>
-                            <p>Nobis amet quod mollitia officia, adipisci veniam rem iusto, nisi delectus animi placeat dolores labore eveniet cupiditate numquam laborum, hic aliquam fugiat voluptatum unde eos ex laudantium corporis? Placeat, ex!</p>
-                        </div>
-                        <div class="fade"></div>
-                    </div>
-                </div>
-                <div id="styleSpecimen">
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="formChecklist">
+					<h2 class="sidebarTitle">
+						Styles
+					</h2>
+					<input type="checkbox" name="styleNorm" id="styleNorm" onchange="SwitchSpecElements(styleNorm, 'Style', 'Normal')">
+					<label for="styleNorm">Normal</label><br>
+					<input type="checkbox" name="styleItal" id="styleItal" onchange="SwitchSpecElements(styleItal, 'Style', 'Italic')">
+					<label for="styleItal">Italics</label><br>
+					<input type="checkbox" name="styleObli" id="styleObli" onchange="SwitchSpecElements(styleObli, 'Style', 'Oblique')">
+					<label for="styleObli">Oblique</label><br>
+				</div>
+				
+				<div class="formChecklist">
+					<h2 class="sidebarTitle">
+						Weights
+					</h2>
+					<input type="checkbox" name="weight100" id="weight100" onchange="SwitchSpecElements(weight100, 'Weight', '100')">
+					<label for="weight100">100 (Thin)</label><br>
+					<input type="checkbox" name="weight200" id="weight200" onchange="SwitchSpecElements(weight200, 'Weight', '200')">
+					<label for="weight200">200 (ExtraLight)</label><br>
+					<input type="checkbox" name="weight300" id="weight300" onchange="SwitchSpecElements(weight300, 'Weight', '300')">
+					<label for="weight300">300 (Light)</label><br>
+					<input type="checkbox" name="weight400" id="weight400" onchange="SwitchSpecElements(weight400, 'Weight', '400')">
+					<label for="weight400">400 (Regular)</label><br>
+					<input type="checkbox" name="weight500" id="weight500" onchange="SwitchSpecElements(weight500, 'Weight', '500')">
+					<label for="weight500">500 (Medium)</label><br>
+					<input type="checkbox" name="weight600" id="weight600" onchange="SwitchSpecElements(weight600, 'Weight', '600')">
+					<label for="weight600">600 (SemiBold)</label><br>
+					<input type="checkbox" name="weight700" id="weight700" onchange="SwitchSpecElements(weight700, 'Weight', '700')">
+					<label for="weight700">700 (Bold)</label><br>
+					<input type="checkbox" name="weight800" id="weight800" onchange="SwitchSpecElements(weight800, 'Weight', '800')">
+					<label for="weight800">800 (ExtraBold)</label><br>
+					<input type="checkbox" name="weight900" id="weight900" onchange="SwitchSpecElements(weight900, 'Weight', '900')">
+					<label for="weight900">900 (Black)</label><br>
+				</div>
+			
+				<div class="formChecklist">
+					<h2 class="sidebarTitle">
+						Characters
+					</h2>
+					<input type="checkbox" name="charASCII" id="charASCII">
+					<label for="charASCII">ASCII</label><br>
+					<input type="checkbox" name="charLat" id="charLat">
+					<label for="charLat">Latin</label><br>
+					<input type="checkbox" name="charLat-Ex" id="charLat-Ex">
+					<label for="charLat-Ex">Latin Extended</label><br>
+					<input type="checkbox" name="charIPA" id="charIPA">
+					<label for="charIPA">IPA</label><br>
+					<input type="checkbox" name="charGrk" id="charGrk">
+					<label for="charGrk">Greek</label><br>
+					<input type="checkbox" name="charCyr" id="charCyr">
+					<label for="charCyr">Cyrilic</label><br>
+					<input type="checkbox" name="charArm" id="charArm">
+					<label for="charArm">Armenian</label><br>
+					<input type="checkbox" name="charHeb" id="charHeb">
+					<label for="charHeb">Hebrew</label><br>
+					<input type="checkbox" name="charArb" id="charArb">
+					<label for="charArb">Arabic</label><br>
+					<input type="checkbox" name="charSyr" id="charSyr">
+					<label for="charSyr">Syriac</label><br>
+				</div>
+				<h2 class="sidebarTitle">
+					Details
+				</h2>
+				<div class="fieldList">
+					<label for="history" class="smallLabel">History</label>
+					<textarea rows="8" name="history" id="history"></textarea>
+					<label for="historySourceName" class="smallLabel">Source</label>
+					<input type="text" name="historySourceName" id="historySourceName" placeholder="Wikipedia">
+					<label for="historySourceLink" class="smallLabel">Link</label>
+					<input type="text" name="historySourceLink" id="historySourceLink" class="mono" placeholder="https://en.wikipedia.org/wiki/Times_New_Roman">
+				</div>
+			</form>
+			<div id="submissionSpecimen">
+				<h1 class="specimenTitle">
+					<span class="fontName">Archivo</span>
+				</h1>
+				<div id="displaySpecimen">
+					<div class="displaySpecimenLayout" style="text-align: center;">
+						<p class="noSpacing" style="font-size: 2.5em; font-weight: bold; font-style: italic;">
+							Lorem, ipsum dolor sit amet.</p>
+						<p class="noSpacing" style="font-size: 1.25em; font-weight: normal; font-style: normal;">
+							Dolore fugit officiis voluptatibus aliquid explicabo nostrum.</p>
+						<p class="noSpacing" style="font-size: 1.75em; font-weight: normal; font-style: normal;">
+							Facere quisquam voluptates ipsam culpa.</p>
+						<p class="noSpacing" style="font-size: 3em; font-weight: bold; font-style: normal;">
+							Corporis corro expedita.</p>
+						<p class="noSpacing" style="font-size: 2.5em; font-weight: normal; font-style: italic;">
+							Quibusdam inventore dolorem.</p>
+					</div>
+				</div>
+				<div id="bodySpecimen">
+					<div class="bodySpecimenLayout">
+						<div class="noSpacing" style="font-size: 1em; text-align:justify;">
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium ducimus velit voluptatum quidem quasi maiores, error expedita provident natus vero nam ipsam, alias nobis nisi, temporibus facere assumenda quibusdam!</p>
+							<p>Incidunt fugiat quidem repellendus perspiciatis accusantium dolore sed magnam exercitationem totam, corrupti assumenda laudantium nostrum aliquid iste adipisci at? Aut vero ut sapiente rem tenetur est rerum impedit omnis quod.</p>
+							<p>Odit a quaerat in labore amet. Nemo earum, voluptas suscipit labore commodi aliquam corrupti ipsam delectus voluptates? Itaque voluptatibus, nobis facilis eius expedita nam omnis placeat libero deleniti reiciendis dolorem?</p>
+							<p>Illum error quisquam maxime facilis veniam exercitationem dolores a, voluptate praesentium quae magnam minima aliquam molestias non inventore, alias laborum sapiente, sunt ducimus quidem reprehenderit iure! Sunt consequatur voluptates ducimus.</p>
+							<p>Nobis amet quod mollitia officia, adipisci veniam rem iusto, nisi delectus animi placeat dolores labore eveniet cupiditate numquam laborum, hic aliquam fugiat voluptatum unde eos ex laudantium corporis? Placeat, ex!</p>
+						</div>
+						<div class="noSpacing" style="font-size: 8px;">
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium ducimus velit voluptatum quidem quasi maiores, error expedita provident natus vero nam ipsam, alias nobis nisi, temporibus facere assumenda quibusdam!</p>
+							<p>Incidunt fugiat quidem repellendus perspiciatis accusantium dolore sed magnam exercitationem totam, corrupti assumenda laudantium nostrum aliquid iste adipisci at? Aut vero ut sapiente rem tenetur est rerum impedit omnis quod.</p>
+							<p>Odit a quaerat in labore amet. Nemo earum, voluptas suscipit labore commodi aliquam corrupti ipsam delectus voluptates? Itaque voluptatibus, nobis facilis eius expedita nam omnis placeat libero deleniti reiciendis dolorem?</p>
+							<p>Illum error quisquam maxime facilis veniam exercitationem dolores a, voluptate praesentium quae magnam minima aliquam molestias non inventore, alias laborum sapiente, sunt ducimus quidem reprehenderit iure! Sunt consequatur voluptates ducimus.</p>
+							<p>Nobis amet quod mollitia officia, adipisci veniam rem iusto, nisi delectus animi placeat dolores labore eveniet cupiditate numquam laborum, hic aliquam fugiat voluptatum unde eos ex laudantium corporis? Placeat, ex!</p>
+						</div>
+						<div class="noSpacing" style="font-size: 0.75em;">
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione accusantium ducimus velit voluptatum quidem quasi maiores, error expedita provident natus vero nam ipsam, alias nobis nisi, temporibus facere assumenda quibusdam!</p>
+							<p>Incidunt fugiat quidem repellendus perspiciatis accusantium dolore sed magnam exercitationem totam, corrupti assumenda laudantium nostrum aliquid iste adipisci at? Aut vero ut sapiente rem tenetur est rerum impedit omnis quod.</p>
+							<p>Odit a quaerat in labore amet. Nemo earum, voluptas suscipit labore commodi aliquam corrupti ipsam delectus voluptates? Itaque voluptatibus, nobis facilis eius expedita nam omnis placeat libero deleniti reiciendis dolorem?</p>
+							<p>Illum error quisquam maxime facilis veniam exercitationem dolores a, voluptate praesentium quae magnam minima aliquam molestias non inventore, alias laborum sapiente, sunt ducimus quidem reprehenderit iure! Sunt consequatur voluptates ducimus.</p>
+							<p>Nobis amet quod mollitia officia, adipisci veniam rem iusto, nisi delectus animi placeat dolores labore eveniet cupiditate numquam laborum, hic aliquam fugiat voluptatum unde eos ex laudantium corporis? Placeat, ex!</p>
+						</div>
+						<div class="fade"></div>
+					</div>
+				</div>
+				<div id="styleSpecimen">
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
