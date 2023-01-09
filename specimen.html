@@ -7,7 +7,6 @@
 	<script src="js/BasicUI.js"></script>
 	<script src="js/ElementGenerator.js"></script>
 	<script src="js/FontData.js"></script>
-	<script src="js/panose.js"></script>
 	<script>
 		function retrieveData(){
 			RestoreSession();
@@ -49,19 +48,6 @@
 				}
 			}
 			
-			let panose = document.getElementById("panose");
-			panose.innerHTML = "";
-			for (let i = 0; i < data.families[id].fonts.length; i++){
-				var fontID = data.families[id].fonts[i];
-				var fontPanose = data.fonts[fontID].style.panose;
-
-				panose.innerHTML += 
-					`<div style ="${panoseToCSS(fontPanose)}">
-						<h3> ${data.fonts[fontID].fullName} PANOSE:</h3>
-						<p>${panoseString(fontPanose, true)}</p>
-					</div>`;
-			}			
-			
 			let dataSpans = document.getElementsByClassName("replace");
 			for (let i = 0; i < dataSpans.length; i++){
 				{
@@ -102,7 +88,6 @@
 							<p style="font-size: .75em;">Donec varius tellus, quisque placerat ut taciti sit. Nam enim cubilia volutpat, imperdiet porttitor magna, lorem ornare rhoncus ad aptent habitant amet. Mauris quis placerat eros, habitant urna elementum, vitae habitasse semper eget conubia platea. Aliquam molestie eros ornare, taciti conubia venenatis class proin. Nostra aliquam amet curabitur, quisque ligula hac volutpat scelerisque. Facilisis vehicula, suspendisse adipiscing pulvinar velit. Morbi cras condimentum, ipsum curabitur arcu fermentum augue. Aptent sociosqu nec, ornare justo, dapibus nostra torquent egestas lacus laoreet</p>
 						</div>
 						<div class="specimenColumn" style="font-size: x-large;">
-							<p id="panose" style="font-size: small;"></p>
 							<p class="showIf" showIf="weight" equals=100 style="font-weight: 100;"><span class="replace" replace="family"></span> Thin</p>
 							<p class="showIf" showIf="weight" equals=200 style="font-weight: 200;"><span class="replace" replace="family"></span> ExtraLight</p>
 							<p class="showIf" showIf="weight" equals=300 style="font-weight: 300;"><span class="replace" replace="family"></span> Light</p>
